@@ -1,0 +1,23 @@
+{
+  "name": "webssh",
+  "version": "0.1.0",
+  "description": "A web based ssh console",
+  "author": "Roger Bagué <rogerbague@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/rbague/webssh",
+  "private": true,
+  "scripts": {
+    "format": "standard --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com/rbague/webssh.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rbague/webssh/issues"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "standard": "^16.0.3"
+  }
+}
