@@ -7,7 +7,8 @@
   "homepage": "https://github.com/rbague/webssh",
   "private": true,
   "scripts": {
-    "format": "standard --fix"
+    "format": "standard --fix",
+    "dev": "nf start"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
     "packages/*"
   ],
   "devDependencies": {
+    "foreman": "^3.0.1",
     "standard": "^16.0.3"
   }
 }

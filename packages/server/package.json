@@ -5,10 +5,14 @@
   "type": "module",
   "main": "src/index.js",
   "scripts": {
+    "dev": "nodemon --watch src",
     "start": "node ."
   },
   "dependencies": {
     "express": "^4.17.1",
     "socket.io": "^3.0.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
   }
 }
