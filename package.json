@@ -16,7 +16,9 @@
   "bugs": {
     "url": "https://github.com/rbague/webssh/issues"
   },
-  "dependencies": {},
+  "workspaces": [
+    "packages/*"
+  ],
   "devDependencies": {
     "standard": "^16.0.3"
   }
