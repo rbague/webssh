@@ -25,4 +25,17 @@ fitAddon.fit()
 terminal.onData(data => socket.emit('data', data))
 socket.on('data', data => terminal.write(data))
 
+socket.on('connect_error', () => console.error('could not connect with the ssh server'))
+socket.on('disconnect', reason => {
+  if (/server/i.test(reason)) {
+    console.error('connection closed by ssh server')
+  }
+  socket.io.reconnection(false)
+  terminal.dispose()
+})
+
 window.addEventListener('resize', fitAddon.fit)
+window.onunload = function () {
+  if (terminal) terminal.dispose()
+  if (socket) socket.disconnect()
+}
