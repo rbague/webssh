@@ -14,6 +14,7 @@ export default function (socket) {
 
       socket.on('data', data => stream.write(data))
       socket.on('disconnect', () => connection.end())
+      socket.on('resize', ({ rows, cols }) => stream.setWindow(rows, cols))
 
       stream.on('data', data => emitData(data))
       stream.on('close', () => {
