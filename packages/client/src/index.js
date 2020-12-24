@@ -27,6 +27,10 @@ socket.on('data', data => terminal.write(data))
 
 socket.on('connect', resize)
 socket.on('connect_error', () => console.error('could not connect with the ssh server'))
+socket.on('error', message => {
+  terminal.reset()
+  terminal.writeln(`\u001b[31m${message}\u001b[0m`)
+})
 socket.on('disconnect', reason => {
   if (/server/i.test(reason)) {
     console.error('connection closed by ssh server')

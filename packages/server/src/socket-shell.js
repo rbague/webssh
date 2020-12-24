@@ -24,8 +24,12 @@ export default function (socket) {
     })
   })
 
+  const { host, port } = socket.handshake.session.ssh
+  delete socket.handshake.session.ssh
+
   connection.connect({
-    host: '',
+    host,
+    port,
     username: '',
     password: '',
     keepaliveInterval: 60000
@@ -37,6 +41,8 @@ export default function (socket) {
 
   function connectionError (error) {
     console.error('connection error:', error)
+
+    if (error instanceof Error) socket.emit('error', error.message)
     socket.disconnect()
   }
 }
