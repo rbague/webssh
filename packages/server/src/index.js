@@ -5,6 +5,7 @@ import path from 'path'
 import socketShell from './socket-shell.js'
 import expressSession from 'express-session'
 import socketSession from 'express-socket.io-session'
+import * as decode from './decode.js'
 
 const app = express()
 const server = http.createServer(app)
@@ -23,11 +24,14 @@ app.use('/', (req, res, next) => {
   indexRequest ? res.sendStatus(404) : next()
 })
 app.use('/', express.static(publicPath, { index: false }))
-app.get('/:hostport/', (req, res) => {
-  res.sendFile(path.join(publicPath, 'index.html'))
+app.get('/:hostport/:credentials/', (req, res) => {
+  const credentials = decode.credentials(req.params.credentials)
+  if (!credentials) return res.sendStatus(401)
 
-  const [host, port] = decodeURIComponent(req.params.hostport).split(':', 2)
-  req.session.ssh = { host, port }
+  const hostport = decode.hostPort(req.params.hostport)
+  req.session.ssh = { ...hostport, ...credentials }
+
+  res.sendFile(path.join(publicPath, 'index.html'))
 })
 
 const io = new SocketServer(server, { serveClient: false, path: '/socket' })

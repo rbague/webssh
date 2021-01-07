@@ -24,14 +24,14 @@ export default function (socket) {
     })
   })
 
-  const { host, port } = socket.handshake.session.ssh
+  const { host, port, username, password } = socket.handshake.session.ssh
   delete socket.handshake.session.ssh
 
   connection.connect({
     host,
     port,
-    username: '',
-    password: '',
+    username,
+    password,
     keepaliveInterval: 60000
   })
 
