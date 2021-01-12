@@ -1,6 +1,5 @@
 const path = require('path')
 
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
@@ -11,17 +10,16 @@ module.exports = {
     bundle: path.resolve(__dirname, 'src', 'index.js')
   },
   output: {
-    filename: '[name].[fullhash].js',
+    filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist')
   },
   devServer: {
-    overlay: true,
-    port: 9000,
-    writeToDisk: true
+    index: 'index.html',
+    open: true,
+    overlay: true
   },
   plugins: [
-    new CleanWebpackPlugin(),
-    new MiniCssExtractPlugin({ filename: '[name].[fullhash].css' }),
+    new MiniCssExtractPlugin({ filename: '[name].[contenthash].css' }),
     new HtmlWebpackPlugin({
       filename: path.resolve(__dirname, 'dist', 'index.html'),
       template: path.resolve(__dirname, 'src', 'index.html'),

@@ -6,9 +6,23 @@ import { io } from 'socket.io-client'
 import './style.css'
 import 'xterm/css/xterm.css'
 
-const fitAddon = new FitAddon()
-const socket = io.connect({ path: '/socket' })
+const params = new URLSearchParams(window.location.search)
+const options = {
+  query: {
+    host: params.get('host')
+  },
+  auth: {
+    username: params.get('user'),
+    password: params.get('passwd')
+  }
+}
+if (params.has('port')) {
+  options.query.port = params.get('port')
+}
 
+const socket = io('http://localhost:2222', { path: '/socket', ...options })
+
+const fitAddon = new FitAddon()
 const terminal = new Terminal({
   cursorBlink: true,
   bellStyle: 'sound',

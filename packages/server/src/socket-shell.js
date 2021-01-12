@@ -1,6 +1,13 @@
 import ssh from 'ssh2'
 
 export default function (socket) {
+  const { auth, query } = socket.handshake
+  if (!query.host || !auth.username || !auth.password) {
+    socket.emit('error', 'missing required credentials')
+    socket.disconnect()
+    return
+  }
+
   const connection = new ssh.Client()
   connection.on('banner', message => emitData(message.replace(/(\r?\n)|(\r\n?)/g, '\r\n')))
   connection.on('error', error => connectionError(error))
@@ -24,14 +31,11 @@ export default function (socket) {
     })
   })
 
-  const { host, port, username, password } = socket.handshake.session.ssh
-  delete socket.handshake.session.ssh
-
   connection.connect({
-    host,
-    port,
-    username,
-    password,
+    host: query.host,
+    port: query.port,
+    username: auth.username,
+    password: auth.password,
     keepaliveInterval: 60000
   })
 
