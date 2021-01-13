@@ -1,0 +1,3 @@
+# Otherwise, node_modules from within a workspace is copied
+# and overrides the one generated inside the container
+**/node_modules
