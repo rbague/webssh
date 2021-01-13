@@ -1,6 +1,7 @@
 const { mergeWithCustomize } = require('webpack-merge')
 const common = require('./webpack.config.js')
 
+const { DefinePlugin } = require('webpack')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
@@ -10,6 +11,7 @@ module.exports = mergeWithCustomize({
     if (key === 'plugins') {
       return [
         new CleanWebpackPlugin(),
+        new DefinePlugin({ IFRAME_ORIGIN: undefined }),
         ...common,
         new CompressionPlugin({ minRatio: 1 })
       ]

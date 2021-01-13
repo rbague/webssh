@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>WebSSH IFramed</title>
+
+    <style>
+      html, body  {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      iframe {
+        display: block;
+        height: 100%;
+        width: 100%;
+        border: 0;
+      }
+
+      @-ms-viewport{
+        width: device-width;
+      }
+    </style>
+  </head>
+  <body>
+    <iframe src="http://localhost:8080" loading="eager"></iframe>
+
+    <script type="text/javascript" async defer>
+      window.addEventListener('load', function setup () {
+        window.removeEventListener('load', setup)
+
+        const iframe = document.querySelector('iframe')
+        iframe.contentWindow.postMessage({
+          type: 'embed-webssh',
+          host: '',
+          username: '',
+          password: ''
+        }, '*')
+      })
+    </script>
+  </body>
+</html>

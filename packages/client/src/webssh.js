@@ -32,7 +32,8 @@ export default class WebSSH {
     const query = { host: config.host }
     if (config.port) query.port = config.port // optional parameter
 
-    this.socket = io(url, { path: '/socket', auth, query })
+    const options = { path: '/socket', auth, query }
+    this.socket = url ? io(url, options) : io.connect(options)
   }
 
   addListeners () {
